@@ -26,6 +26,11 @@ pipeline {
                     archiveArtifacts 'target/*.war'
                 }
             }
+            stage('upload artifact into nexus'){
+                steps{
+                    nexusArtifactUploader artifacts: [[artifactId: 'jenkins-git-integration', classifier: '', file: '/Users/venugopal/.jenkins/workspace/mvn_test1/target/jenkins-git-integration.war', type: 'war']], credentialsId: 'ab0a9f6a-0f2e-45d8-a3a5-69b9937ae322', groupId: 'jenkins-git-integration', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-nexus-repo', version: '3.8.2'
+                }
+            }
         }
     }
 }
